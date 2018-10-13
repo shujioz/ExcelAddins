@@ -1,0 +1,21 @@
+Sub DelStyle()
+
+On Error Resume Next
+
+Dim M()
+Default_Styles = "Hyperlink,Normal,Followed Hyperlink,タイトル,チェック セル,どちらでもない,Percent,メモ,リンク セル,悪い,計算,警告文,Comma [0],Comma,見出し 1,見出し 2,見出し 3,見出し 4,集計,出力,説明文,Currency [0],Currency,入力,Normal,良い"
+J = ActiveWorkbook.Styles.Count
+ReDim M(J)
+For i = 1 To J
+    M(i) = ActiveWorkbook.Styles(i).Name
+Next
+For i = 1 To J
+    If InStr(Default_Styles, M(i)) = 0 Then
+        ActiveWorkbook.Styles(M(i)).Delete
+    End If
+
+Application.StatusBar = "(" & i & "/" & J & ") を処理中…"
+Next
+Application.StatusBar = False
+
+End Sub
